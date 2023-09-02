@@ -1,38 +1,58 @@
-Q1. 1. What is emmet? 
-Ans: Emmet is a set of plug-ins for text editors that allows 
-for high-speed coding and editing in HTML, XML, XSLT, and other 
-structured code formats via content assist. When emmet is plugged in the IDE,
-the editor will show the suggestion and we can simply add the HTML tag without the angular bracket and many more.
+**What is NPM?**
+•	Manages packages 
+•	It does not have a full form
+•	It is definitely not node package manager
+•	Standard repository for all packages
 
-Q2. Difference between library and framework?
-Ans : The key difference between a library and a framework is “Inversion of Control”. 
-When you call a method from a library, you are in control.
-But with a framework, the control is inverted: the framework calls your code.
-Example of library : Reactjs 
-Example of framework: Nodejs
+**What is ‘Parcel\Webpack’? Why do we need it?**
+•	Parcel\Webpack are all basically bundlers that make our life easier by minimizing your code and also package your app properly so that it can be pushed onto production.
 
-Q3. What is CDN? Why do we use it?
-Ans : A CDN, or Content Delivery Network, is a geographically distributed network of proxy servers and their data centers. 
-The goal of a CDN is to provide high availability and performance by distributing the service spatially relative to end-users.
-CDNs are primarily used to serve content to users more quickly and efficiently, reducing latency and improving user experience. 
-They are often used for delivering large files, streaming video and audio, serving software updates, and more.
+**What is ‘.parcel-cache’?**
+•	It contains some binary files. Caches everything that you do, supports HMR, and ensures that next builds are developed faster
 
-Q4.Why is React known as React?
-React is called "React" because of its core feature, which is its ability to "react" or respond dynamically to changes in data, React's 
-primary goal is to simplify the creation of complex, interactive user interfaces by breaking them down into smaller, reusable components
+**What is ‘npx’?**
+•	Node package executes a package without even installing them
 
-Q5. What is cross-origin in the script tag?
--   The cross-origin is a attribute used to share resource from one domain to another domain.Mainly it is used to handle CORS(Cross-Origin Resource sharing) request that checks whether it is safe to allow for sharing the resources from 
-other domains. Resources like external script, links, img, vedio.
+**What is the difference between ‘dependencies’ vs ‘dev-dependencies’**
+•	**Dependencies** – Packages that are required by your application in production
+•	**Dev-dependencies** – Packages that are required in the development and testing phase Eg: Parcel
 
-Q6. What is the difference between React and reactDOM?
-React: React is a javascript library, designed for building better user interfaces.
- React-DOM: React-DOM is a complimentary library to React which glues React to the browser DOM use component, classes, elements, etc.
-We’re using React and whenever we use methods like render() or findDOMNode() we’re using React-DOM.
+**What is Tree Shaking?**
+•	Parcel removes the unused code for you. Also called as Dead code Elimination
 
-Q7- What is difference between react.development.js and react.production.js files via cdn?
-In production mode, compression and minification of Javascript and other resources happens to reduce size of the code which is not the case when it comes to development mode. Performance will be much faster in production mode when compared to development mode.
+**What is Hot Module Replacement?**
+•	when you modify your code and save it, your server gets automatically updated to the modified content. It does the job of automatic refreshing.
 
-Q8- What are async and defer? 
-Async allows your script to run as soon as it's loaded, without blocking other elements on the page. 
-Defer means your script will only execute after the page has finished loading
+**List down your favorite 5 superpowers of Parcel and describe any 3 of them in your own words**.
+•	**Local server** – Provides a local server and hosts your app on that server 
+•	**Diagnostics** – If there is an error in the code, Parcel provides beautiful diagnostics in the browser and terminal by pointing it to the exact error location
+•	**Differential Bundling** – Supports older browser versions too. You have to just edit the package.json file. eg: “browserslist”:[“last 2 versions”]
+•	**Hot Module Replacement**
+•	**Tree shaking**
+
+**What is '.gitignore'?What should we add and not add to it?**
+- As the name suggests it contains all the untracked files that git should ignore.
+- We should push all those files into git which cannot be regenerated/recreated like HTML, css,js,package.json, and package-lock.json files
+- We should not put node modules dist and .parcel-cache files into git because when you have package.json and package-lock.json files we can regenerate/recreate them using the command: npm install 
+
+**What is the difference between 'package.json' and 'package-lock.json'?**
+- **package.json** -> It is installed once u install npm using the command npm init. It is basically a configuration for npm.
+- **package-lock.json** -> It is installed once u install the parcel using the command npm install -D parcel. It keeps track of the exact version that is being used
+
+**Why should I not modify 'package-lock.json'?**
+- package-lock.json file contains information about the dependencies and their versions used in the project. Deleting it would cause dependency issues in the production environment. So don't modify it, It's being handled automatically by NPM.
+
+  **What is 'node_modules'?Is it a good idea to push that on Git?**
+  - Node modules are a collection of dependencies that contains all the code that we fetch from npm
+  - No, we should not push node modules into git because when we have package.json and package-lock.json files we can regenerate/recreate node modules using the command: npm install
+
+  **What is the 'dist' folder?**
+  - when u execute parcel (npx parcel index.html) it generates a dev build of your project and puts it up inside dist folder
+  - inside dist folfer we have the minifed, compressed code
+  - It can have both developement and production ready code
+  - Command for development code: npx parcel index.html
+  - Command for production code: npx parcel build index.html (before executing this command remove the line main:App.js under package.json file)
+
+  **What is 'browserslist'?**
+  - It specifies which browser versions are supported to use the developed App. under the package.json we can specify them
+  - eg:  “browserslist”:[“last 2 versions”]

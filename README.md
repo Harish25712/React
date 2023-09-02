@@ -1,39 +1,124 @@
-React - JS library developed by Facebook
-Browsers does not understand react
-React can work with existing apps and also can work on small portions of your app
+In your existing project
 
-To insert react into your project:
-Go to CDN React and paste the 2 scripts in your code
+initialize npm into your repo:
+ npm init -> package.json is created
 
-- react.development.js => Core of React (all codes,variables,functions are present)
-- react-dom.development.js => Used for all DOM Operations
+install parcel:
+npm install -D parcel -> package-lock.json and node_modules is created
 
-React native - React used in your mobile
+You can recreate node modules using command:
+npm install
 
+ignite your app with parcel:
+npx parcel index.html => dist and .parcel-cache folder is created and gives a, Server running at http://localhost:1234
 
-react.createElement -> normal JS object -> when it renders => becomes html tag (browser understands)
-it takes 3 arguments:
+install react and react-dom:
+npm install react
+npm install react-dom
 
-- type of html element like heading or p or div
-- object which used to give attributes to your tag like {id:"heading"}
-- children or content like "I am h1 tag"
+remove CDN links of react:
 
-Props(can be found under console): Children + Attributes
+add script for start and build with parcel commands:
+"scripts": {
+  "start": "parcel ./index.html",
+  "build": "parcel build ./index.html"
+},
 
-To pass more than 1 children in React.createElement we have to convert this into a array of functions.
+add .gitignore file:
+.gitignore
+/node_modules
+.parcel-cache
+/dist
 
-Order of the file matters , else will thrwo an error
+add browserlists:
+"browserslist": {
+  "last 2 version"
+}
 
-Anything u write inside root will be replaced by whatever u pass it on render method
-eg: In html:
-<body>
-    <div id="header">
-        <h1>Hello!</h1>
-    </div>
+Development build:
+npm run start (or) npm start
 
-    In JS:
-    const parent = React.createElement("h3",{id:"heading"},"I am h3 tag!");
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(parent);
+build a production version of your code using parcel build:
+npm run build
 
-    O/P: Hello! will be replaced by I am h3 tag!
+npm - manages packages, it does not have a full form, it is not node package manager, standard repository for all packages
+
+package.json file -> configuration for npm 
+package-lock.json -> keeps a track of exact version that is being used
+
+Inside package.json -> parcel -> "integrity":sha-512 (Hashing)
+It ensures whatever is there in my machine is the same version which is deployed in the production
+
+packages are also called as dependencies
+
+There are 2 types of dependencies:
+
+- dev - like parcel
+- normal
+
+Bundlers - packages your app properly, so that it can be shift to production
+eg: webpack,parcel,etc...
+
+node modules -> database which contains all the code that we fetch from npm 
+                collection of dependencies
+
+Transitive dependency -> parcel has its own dependencies (babel,browserslist,etc..)
+
+All libraries have their own package.json and its own dependencies
+
+we should not push node modules,dist and .parcel-cache to git or production
+Reason: We can recreate them 
+
+we should push package.json,package-lock.json to git
+
+.gitignore: it contains all the untracked files that git should ignore.
+
+npx parcel index.html => dist and .parcel-cache folder is created and gives a, Server running at http://localhost:1234
+Parcel creates a server for us and hosted our app on that server
+
+npm commands - installing a package
+npx commands - executing a package
+
+CDN links is not a preferred way to bring react into our project.
+Y? -> costly operations and for each change of version,u have to change the URL.
+
+we have installed the package, but for code to understand react, use:
+import React from "react"; -> this react is present inside node modules
+import ReactDOM from "react-dom/client";
+
+After adding this in console we get err: Browsers scripts cannot have imports (or) exports
+
+change script type="module" in html file
+
+# Parcel
+- Dev Build
+- Local Server
+- HMR = Hot Module Replacement - when you modify your code and save it, your server gets automatically updated to the modified content. It does the job of automatic refreshing.
+- File Watching Algorithm - written in C++
+- Caching - Faster Builds 
+
+  parcel-cache:
+   It contains some binary files. Caches everything that you do, supports HMR, and ensures that next builds are developed faster
+
+- Image Optimization
+- Minification
+- Bundling
+- Compress
+- Consistent Hashing
+- Code Splitting
+- Differential Bundling - support older browsers
+- Diagnostics – If there is an error in the code, Parcel provides beautiful diagnostics in the browser and terminal by pointing it to the exact error location
+- Error Handling
+- HTTPs
+- Tree Shaking - remove unused code Parcel. Also called as Dead code Elimination
+
+- Different dev and prod bundles
+
+dist folder:
+  - when u execute parcel (npx parcel index.html) it generates a dev build of your     project and puts it up inside dist folder
+  - inside dist folfer we have the minifed, compressed code
+  - It can have both developement and production ready code
+  - Command for development code: npx parcel index.html
+  - Command for production code: npx parcel build index.html (before executing this command remove the line main:App.js under package.json file)
+
+  browserslist:It specifies which browser versions are supported to use the developed App. under the package.json we can specify them
