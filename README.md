@@ -1,39 +1,8 @@
-In your existing project
-
-initialize npm into your repo:
- npm init -> package.json is created
-
-install parcel:
-npm install -D parcel -> package-lock.json and node_modules is created
-
-You can recreate node modules using command:
-npm install
-
-ignite your app with parcel:
-npx parcel index.html => dist and .parcel-cache folder is created and gives a, Server running at http://localhost:1234
-
-install react and react-dom:
-npm install react
-npm install react-dom
-
-remove CDN links of react:
-
-add script for start and build with parcel commands:
+add script for start and build with parcel commands in package.json:
 "scripts": {
   "start": "parcel ./index.html",
   "build": "parcel build ./index.html"
 },
-
-add .gitignore file:
-.gitignore
-/node_modules
-.parcel-cache
-/dist
-
-add browserlists:
-"browserslist": {
-  "last 2 version"
-}
 
 Development build:
 npm run start (or) npm start
@@ -41,84 +10,61 @@ npm run start (or) npm start
 build a production version of your code using parcel build:
 npm run build
 
-npm - manages packages, it does not have a full form, it is not node package manager, standard repository for all packages
+React.createElement => React Element (JS Object) => when JS object is rendered, it becomes => HTML Element
 
-package.json file -> configuration for npm 
-package-lock.json -> keeps a track of exact version that is being used
+JSX => It is not HTML in JS, rather it is a xml/html like syntax and developer friendly
 
-Inside package.json -> parcel -> "integrity":sha-512 (Hashing)
-It ensures whatever is there in my machine is the same version which is deployed in the production
+Javascript => any piece of code that JS Engine understands
+              JS engine undrstands ECMAScript (ES6)
 
-packages are also called as dependencies
+const jsxHeading = <h1 id="heading">Harish using JSX</h1>; => not a valid JS code,Js engine doesnt understands this.
 
-There are 2 types of dependencies:
+But then how we get the output in the browser?
+Babel(JS package) -> Is a Javascript compiler that transpiles the code in a way JS engine can undestand before it goes to the JS Engine
 
-- dev - like parcel
-- normal
+How it does?
+JSX code is converted to => React.createElement (by babel) => React Element (JS Object) => when JS object is rendered, it becomes => HTML Element
 
-Bundlers - packages your app properly, so that it can be shift to production
-eg: webpack,parcel,etc...
+So, both are the same
 
-node modules -> database which contains all the code that we fetch from npm 
-                collection of dependencies
+Attributes in JSX are camel case eg: className,tabIndex but in html attributes we use class,tabindex
 
-Transitive dependency -> parcel has its own dependencies (babel,browserslist,etc..)
+React component: 
+ Component name should start with a capital letter
 
-All libraries have their own package.json and its own dependencies
+Everything is a component in React - header,footer,body etc...
 
-we should not push node modules,dist and .parcel-cache to git or production
-Reason: We can recreate them 
+- Class based Component - old method
 
-we should push package.json,package-lock.json to git
+- Functional component - new method
+                 - Normal JS Function which returns some JSX code (or)
+                 - JS Function which returns a React element
 
-.gitignore: it contains all the untracked files that git should ignore.
+- component inside component -> Component composition
 
-npx parcel index.html => dist and .parcel-cache folder is created and gives a, Server running at http://localhost:1234
-Parcel creates a server for us and hosted our app on that server
+prefer to write JS arrow functions for creating component rather than normal function
 
-npm commands - installing a package
-npx commands - executing a package
+Anywhere inside JSX u can use any piece of JS code enclosed within {}
 
-CDN links is not a preferred way to bring react into our project.
-Y? -> costly operations and for each change of version,u have to change the URL.
+calling a component inside component can be done in 3 ways:
+<component/>
+<component></component>
+{component}
 
-we have installed the package, but for code to understand react, use:
-import React from "react"; -> this react is present inside node modules
-import ReactDOM from "react-dom/client";
+All means the same 
+U can call a component as much time as u want
 
-After adding this in console we get err: Browsers scripts cannot have imports (or) exports
+JSX take care of any malicious data and prevent from cross site scripting/Injection attacks
+JSX basically escapes it and sanitises your data before passing it
 
-change script type="module" in html file
+component cannot be called before initialisation but element can be called before initialisation
 
-# Parcel
-- Dev Build
-- Local Server
-- HMR = Hot Module Replacement - when you modify your code and save it, your server gets automatically updated to the modified content. It does the job of automatic refreshing.
-- File Watching Algorithm - written in C++
-- Caching - Faster Builds 
+component inside element and same element inside same component forms a infinite loop
 
-  parcel-cache:
-   It contains some binary files. Caches everything that you do, supports HMR, and ensures that next builds are developed faster
-
-- Image Optimization
-- Minification
-- Bundling
-- Compress
-- Consistent Hashing
-- Code Splitting
-- Differential Bundling - support older browsers
-- Diagnostics – If there is an error in the code, Parcel provides beautiful diagnostics in the browser and terminal by pointing it to the exact error location
-- Error Handling
-- HTTPs
-- Tree Shaking - remove unused code Parcel. Also called as Dead code Elimination
-
-- Different dev and prod bundles
-
-dist folder:
-  - when u execute parcel (npx parcel index.html) it generates a dev build of your     project and puts it up inside dist folder
-  - inside dist folfer we have the minifed, compressed code
-  - It can have both developement and production ready code
-  - Command for development code: npx parcel index.html
-  - Command for production code: npx parcel build index.html (before executing this command remove the line main:App.js under package.json file)
-
-  browserslist:It specifies which browser versions are supported to use the developed App. under the package.json we can specify them
+4 types:
+-component inside component => using <component/> or <component></component> or 
+{component()}
+-component inside element => using <component/> or <component></component> or 
+{component()}
+-element inside component =>using {element}
+-element inside element => using {element}
