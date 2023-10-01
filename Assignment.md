@@ -1,60 +1,71 @@
-### Chapter 05 - Lets's Get Hooked
+### Chapter 06 - Exploring the world
 
-1. ### what is difference between named export and defaault export and *as export ? 
+1. ### What is a Microservice?
+  - A microservice is a software architectural style that structures an application as a collection of small, independent, and loosely coupled services. 
+ - Each service in a microservices architecture represents a specific functional module and operates as a separate unit with its own dedicated processes. 
+ - These services communicate with each other through well-defined APIs (Application Programming Interfaces) typically over HTTP or other lightweight protocols.
+ - It follows single responsibility principle
+ - Separation of concerns -> All teams (Backend,UI,DB,SMS,Authentications,Email) work on their own independent services
+ - On different ports we can deploy different service
+ - At the end of the day, all these ports can be mapped to domain name
+ - They interact by making a call to different ports/URLs
+  - You can have different tech stacks for different things..(i.e)..You can write microservices in any architecture you want to
+- eg: UI(react),backend(java),DB(python),SMS(golan)
 
-Named export:
-   used when exporting more than 1 variable/component etc..
+2. ### What is a Monolith Architecture?
+ - In software development, a monolith architecture refers to a traditional and older style of designing applications where the entire application is built as a single, large, and tightly integrated unit. 
+ - In a monolithic architecture, all the different components and functionalities of the application are bundled together into a single codebase, typically running in a single process and sharing the same database.
+ - All teams (Backend,UI,DB,SMS,Authentications,Email) work on a single repository/service
+ - Single tech stack per appication/project
+ - eg: If java is used in a service then Java will be used for all services in a application/Project
 
-- Named Export/Import
+3. ### What is the difference between Monolith and Microservice?
+ - Monolith and microservice architectures is the level of coupling and the size of the building blocks. 
+ - Monoliths are a single, tightly integrated unit, while microservices are a collection of small, independent services that communicate through well-defined interfaces.
+ - Microservices provide advantages in terms of scalability, flexibility, and ease of maintenance, but they also come with increased complexity and operational challenges, which need to be carefully managed.
 
-export const Component;
-import {Component} from "path";
+ 4. ### Why do we need a useEffect Hook?
+    - The useEffect Hook allows you to perform side effects in your components.Examples of side effects are: fetching data, directly updating the DOM, and timers.
+    - By using useEffect Hook, you tell React that your component needs to do something after render. React will remember the function you passed (we’ll refer to it as our “effect”), and call it later after performing the DOM updates.
+    - useEffect takes two arguments. The first argument is a function called effect and the second argument (optional) is an array of dependencies.
 
-default export:
-  used when exporting a single variable/component etc..
+5. ### What is Optional Chaining?
+   -  ? -> operator accesses an object's property or calls a function. If the object accessed or function called using this operator is undefined or null, the expression short circuits and evaluates to undefined instead of throwing an error.
+   - Eg: json?.data?.cards[2]?.card?.card?.restaurants
 
-- Default Export/Import
+6. ### What is Shimmer UI?
+   - Fake cards are shown untill the page loads.
+   - It is a version of the UI that doesn't contain actual content, but instead mimics the layout and shapes of the content that will eventually appear. 
+   - It uses a gradient animation that creates a shimmering effect over the placeholders,thereby giving a better user experience untill the page loads
 
-export default Component;
-import Component from "path";
+7. ### What is the difference between JS expression and JS statement.
+   - A JavaScript program consists of a sequence of statements. Each statement is an instruction to do something, like create a variable, run an if/else condition, or start a loop.
+   - Expressions produce a value, and these values are slotted into statements.
+   - Expressions are always part of a statement, even if that statement is otherwise empty. For example, the code below runs a loop without using a for statement, but it still includes an “empty wrapper” statement:
 
-2. ### what is importance of config.js file ?
-    - also can be named as common.js or utils.js (standard practics)
-    - All the utility files can be kept under this folder, inside a file named constants.js
-    - these utilities can be used all across your app.
-    - config.js file is used to store to configuration setting or variable that are used throughout the application
-3. ### what are React Hooks ?
-    React hooks are function provided that allows to use state and other react feature . 
-    (Normal JS utility functions)
+8. ### What is Conditional Rendering, explain with a code example
+   - Displaying different content or components based on certain conditions or logical expressions.It allows developers to control what gets rendered on the user interface based on the state of the application, user input, or other factors.
+   eg:
+   if(listOfRestaurants.length === 0)
+{
+   return <Shimmer/>;
+}
 
-   2 important types of Hooks:
-    - useState() - Superpowerful State Variables in react
-    - useEffect() 
+9. ### What is CORS?
+   - Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources.
 
-4. ### why do we need a useState Hook ? 
-     useState Hooks is used to add state to functional component it allows you to manage and update state within a component.
-     It returns an array with two values: the current state and a function to update it.
-     When we use normal JS variable like let,const..it will not update the UI
-     Only using useState Hook we can update the UI becuase they are Superpowerful State Variables in react  
+10. ### What is async and await?
+    - Techniques used tlo resolve a promise
+    - The async keyword is used to declare that a particular function is asynchronous. 
+    - The await keyword waits for the execution of the async function's code block until a promise is fulfilled or rejected.
 
-  How it works behind the scens?
-     when ever a state variable updates, react re-renders the component
+11. ### What is the use of 'const json = await data.json;' in getRestaurants()
+    - The expression `const json = await data.json()`` is used to extract and parse the JSON data from an HTTP response received from a fetch operation or any other asynchronous operation that returns a Promise.
 
-      React16 -> uses Reconcilliation algorithm -> (React Fiber) => whenever something changes on the UI. This is a new way of finding the diff and updating the DOM
+    - `data`: It represents the result of an asynchronous operation, usually an HTTP response from a fetch request. The data object is a Promise that resolves to the HTTP response.
 
-     currently we are using React18
+    - `await`: The await keyword is used inside an async function to pause the execution of the function until the promise (in this case, the data promise) is settled (resolved or rejected).
 
-     Virtual DOM -> Representation of Actual DOM 
-            -> Normal JS Object
+    - `data.json()`: This is a method call on the data object. In the context of an HTTP response, the json() method is a built-in method that reads the response body and parses it as JSON data. It returns a new Promise that resolves to the JSON data once it's been parsed.
 
-     Actual DOM -> Tags like <div> 
-                           <div>
-                            <img>
-
-       Diff Algorithm -> Finds out the difference between old virtual dom and new virtual dom , 
-                         re renders the component and updates the DOM
-
-Why React is fast?
-React is doing efficient DOM manipulation.
-How? -> React has a virtual DOM
-React can efficiently find out the difference between virtual DOM's and update the UI
+    - `const json = ...`: This line declares a constant variable named json to store the parsed JSON data. The await keyword is used here to ensure that the assignment to json happens only after the JSON data has been fully parsed and the Promise returned by data.json() has been resolved.
